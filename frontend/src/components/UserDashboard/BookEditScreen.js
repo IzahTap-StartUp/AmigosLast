@@ -73,25 +73,27 @@ const BookEdit = (props) => {
   const { userInfo } = userSignin;
   const [loadingUpload, setLoadingUpload] = useState(false);
   const [errorUpload, setErrorUpload] = useState('');
-  const uploadFileHandler = async (e) => {
+
+
+
+  const uploadFileHandler = (e) => {
     const file = e.target.files[0];
-    const bodyFormData = new FormData();
-    bodyFormData.append('image', file);
+    const formData = new FormData();
+    formData.append("file", file);
+    formData.append("upload_preset", "ucsexwqc");
     setLoadingUpload(true);
-    try {
-      const { data } = await Axios.post('http://localhost:5000/api/uploads', bodyFormData, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-          Authorization: `Bearer ${userInfo.token}`,
-        },
-      });
-      setImage(data);
-      setLoadingUpload(false);
-    } catch (error) {
-      setErrorUpload(error.message);
-      setLoadingUpload(false);
-    }
+    Axios.post(
+      "https://api.cloudinary.com/v1_1/progriot/image/upload",
+      formData
+    ).then((response) => {
+      const data = response.data;
+      const fileURL = data.secure_url;
+      setImage(fileURL);
+    });
+    setLoadingUpload(false);
   };
+
+
 
 
   return (
@@ -193,17 +195,6 @@ const BookEdit = (props) => {
                   placeholder="Enter situation"
                   value={situation}
                   onChange={(e) => setSituation(e.target.value)}
-                ></input>
-              </div>
-              <div className="flex flex-col">
-                <label htmlFor="price">Price</label>
-                <input
-                  id="price"
-                  type="text"
-                  className="bg-[#F3F7F5] p-[1rem] mt-[10px]"
-                  placeholder="Enter price"
-                  value={price}
-                  onChange={(e) => setPrice(e.target.value)}
                 ></input>
               </div>
               <div className="flex flex-col">

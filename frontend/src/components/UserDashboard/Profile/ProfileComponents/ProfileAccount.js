@@ -47,7 +47,12 @@ const ProfileAccount = () => {
     }
   }, [dispatch, userInfo.id, user]);
 
+
+
+ 
+
   const submitHandler = (e) => {
+    // submit uploadFileHandler Function also
     e.preventDefault();
     dispatch(
       updateUserProfile({
@@ -61,14 +66,16 @@ const ProfileAccount = () => {
       })
     );
   };
+
   const [imageSelected, setImageSelected] = useState("");
   const [loadingUpload, setLoadingUpload] = useState(false);
   const [errorUpload, setErrorUpload] = useState("");
 
 
-  const uploadFileHandler = () => {
+  const uploadFileHandler = (e) => {
+    const file = e.target.files[0];
     const formData = new FormData();
-    formData.append("file", imageSelected);
+    formData.append("file", file);
     formData.append("upload_preset", "ucsexwqc");
     setLoadingUpload(true);
     Axios.post(
@@ -78,10 +85,12 @@ const ProfileAccount = () => {
       const data = response.data;
       const fileURL = data.secure_url;
       setImage(fileURL);
-      console.log(data)
     });
     setLoadingUpload(false);
   };
+
+
+
   return (
     <React.Fragment>
       <div className="pl-[10px] lg:pl-[20px]">
@@ -120,9 +129,9 @@ const ProfileAccount = () => {
                     id="imageFile"
                     label="Choose Image"
                     className="w-[90%] px-[5px] lg:px-[20px] py-[10px]  text-[16px] mt-[5px] bg-[#6fcf97] rounded-[5px] text-white"
-                    onChange={(e) => setImageSelected(e.target.files[0])}
+                    onChange={uploadFileHandler}
                   />
-                  <button className="bg-[#6fcf97] rounded-[10px] p-[10px] cursor-pointer mt-[10px] text-[white]" onClick={uploadFileHandler}>Set image as profile photo</button>
+                  {/* <button className="bg-[#6fcf97] rounded-[10px] p-[10px] cursor-pointer mt-[10px] text-[white]" onClick={uploadFileHandler}>Set image as profile photo</button> */}
                   <p className="text-[12px] pt-[10px]">
                     Allowed JPG, GIF or PNG, Max size of 800K First Page
                   </p>
