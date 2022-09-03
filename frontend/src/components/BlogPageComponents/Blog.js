@@ -10,7 +10,7 @@ export default function Blog(props) {
       >
         <div className=" w-[150px] h-[100px] lg:w-[350px]  lg:h-[250px]">
           <Link to={`/blog/${blog._id}`}>
-            <img className="rounded-[5px]" src="https://images.pexels.com/photos/7562504/pexels-photo-7562504.jpeg?auto=compress&cs=tinysrgb&w=600&lazy=load" alt={blog.title} />
+            <img className="rounded-[5px]" src={blog.description} alt={blog.title} />
           </Link>
         </div>
         <div className="pl-[10px] pt-[15px] lg:pl-0 lg:pt-[0px]">

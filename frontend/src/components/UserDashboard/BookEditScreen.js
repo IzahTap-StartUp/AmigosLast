@@ -15,7 +15,7 @@ const BookEdit = (props) => {
   const [title, setTitle] = useState("");
   const [author, setAuthor] = useState("");
   const [category, setCategory] = useState("");
-  const [frontPhoto, setFrontPhoto] = useState("");
+  const [image, setImage] = useState("");
   const [situation, setSituation] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [price, setPrice] = useState("");
@@ -43,7 +43,7 @@ const BookEdit = (props) => {
       setTitle(book.title);
       setAuthor(book.author);
       setPrice(book.price);
-      setFrontPhoto(book.frontPhoto);
+      setImage(book.image);
       setPhoneNumber(book.phoneNumber);
       setCategory(book.category);
       setSituation(book.situation);
@@ -59,7 +59,7 @@ const BookEdit = (props) => {
         _id: bookId,
         title,
         price,
-        frontPhoto,
+        image,
         category,
         author,
         situation,
@@ -85,7 +85,7 @@ const BookEdit = (props) => {
           Authorization: `Bearer ${userInfo.token}`,
         },
       });
-      setFrontPhoto(data);
+      setImage(data);
       setLoadingUpload(false);
     } catch (error) {
       setErrorUpload(error.message);
@@ -155,8 +155,8 @@ const BookEdit = (props) => {
                 type="text"
                 className='p-[1rem]'
                 placeholder="Enter image"
-                value={frontPhoto}
-                onChange={(e) => setFrontPhoto(e.target.value)}
+                value={image}
+                onChange={(e) => setImage(e.target.value)}
               ></input>
             </div>
             <div>

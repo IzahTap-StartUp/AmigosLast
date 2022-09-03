@@ -9,7 +9,7 @@ const Book = (props) => {
     >
       <div className="w-[160px] h-[240px] m-0 py-[0px] lg:py-[15px]  mt-[0] lg:w-[270px] lg:h-[350px]">
         <Link to={`/book/${book._id}`}>
-          <img src="https://images.pexels.com/photos/7562504/pexels-photo-7562504.jpeg?auto=compress&cs=tinysrgb&w=600&lazy=load" alt="bookcover" className="rounded-x-[10px] lg:rounded-[10px]" />
+          <img src={book.image} alt="bookcover" className="rounded-x-[10px] lg:rounded-[10px]" />
         </Link>
       </div>
       <div className="text-center">

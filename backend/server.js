@@ -42,7 +42,6 @@ AdminBro.registerAdapter(mongooseAdminBro);
 const AdminBroOptions = {
   resources: [
     User,
-    Book,
     Explanation,
     Job,
     {
@@ -82,6 +81,43 @@ const AdminBroOptions = {
           }
       }
   },
+  {
+    resource: Book,
+    options: {
+        properties: {
+           image: {
+                components: {
+                    edit: AdminBro.bundle('./components/bannerImage.tsx'),
+                    show: AdminBro.bundle('./components/bannerImageList.tsx'),
+                    list: AdminBro.bundle('./components/bannerImageList.tsx')
+                }
+            },
+            _id: { isVisible: true },
+            created_at: { isVisible: false }
+        },
+        actions: {
+            new:{
+                // handler: (response, request,context) => {
+                //     console.log(request.files.image);
+                // }
+                // after: async (response, request, context) => {
+                //     return uploadAfterHook(response, request, context);
+                // }
+                // ,
+                before: async (request, context) => {
+                    return uploadBeforeHook(request, context);
+                }
+            },
+            edit: {
+                before: async (request, context) => {
+                    return uploadBeforeHook(request, context);
+                }
+            },
+            bulkDelete: { isVisible: false },
+            delete: { isVisible: false }
+        }
+    }
+},
   ],
   //  export React component
   branding: {

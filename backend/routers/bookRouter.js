@@ -72,7 +72,7 @@ bookRouter.post(
       seller: req.user._id,
       category: "MARKETING",
       author: "ADMIN" + Date.now(),
-      frontPhoto: "/images/p1.jpg",
+      image: "/images/p1.jpg",
       situation: "AVAILABLE",
       phoneNumber: "0912341234",
       price: "100",
@@ -94,7 +94,7 @@ bookRouter.put(
       book.title = req.body.title;
       book.author = req.body.author;
       book.category = req.body.category;
-      book.frontPhoto = req.body.frontPhoto;
+      book.image = req.body.image;
       book.situation = req.body.situation;
       book.phoneNumber = req.body.phoneNumber;
       book.price = req.body.price;

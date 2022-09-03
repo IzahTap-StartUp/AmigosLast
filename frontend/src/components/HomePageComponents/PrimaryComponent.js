@@ -16,7 +16,7 @@ const PrimaryComponent = () => {
         <div className="pt-[20px]">
           <Link to="/explanations">
             <button className="py-[15px] px-[25px] text-[#FFF] bg-[#6fcf97] rounded-[10px]  mr-[10px] lg:mr-[20px]">
-              Explore Now
+              Explore Now Deyirem
             </button>
           </Link>
           <Link to="/about">

@@ -6,7 +6,7 @@ const bookSchema = new mongoose.Schema(
     seller: { type: mongoose.Schema.Types.ObjectID, ref: 'User' },
     category: { type: String, required: true },
     author: { type: String, required: true },
-    frontPhoto: { type: String, required: true},
+    image: { type: String, required: true},
     situation: { type: String, required: true },
     phoneNumber: { type: String, required: true },
     price: { type: String, required: true },
