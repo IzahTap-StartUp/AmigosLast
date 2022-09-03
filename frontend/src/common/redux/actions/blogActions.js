@@ -25,7 +25,7 @@ export const listBlogs = () => async (
   });
   try {
     const { data } = await Axios.get(
-      `/api/blogs`
+      `http://localhost:5000/api/blogs`
     );
     dispatch({ type: BLOG_LIST_SUCCESS, payload: data.blogs });
   } catch (error) {
@@ -40,7 +40,7 @@ export const listBlogs = () => async (
 export const detailsBlog = (blogId) => async (dispatch) => {
   dispatch({ type: BLOG_DETAILS_REQUEST, payload: blogId });
   try {
-    const { data } = await Axios.get(`/api/blogs/${blogId}`);
+    const { data } = await Axios.get(`http://localhost:5000/api/blogs/${blogId}`);
     dispatch({ type: BLOG_DETAILS_SUCCESS, payload: data });
   } catch (error) {
     dispatch({
@@ -59,7 +59,7 @@ export const createBlog = () => async (dispatch, getState) => {
   } = getState();
   try {
     const { data } = await Axios.post(
-      '/api/blogs',
+      'http://localhost:5000/api/blogs',
       {},
       {
         headers: { Authorization: `Bearer ${userInfo.token}` },
@@ -83,7 +83,7 @@ export const updateBlog = (blog) => async (dispatch, getState) => {
     userSignin: { userInfo },
   } = getState();
   try {
-    const { data } = await Axios.put(`/api/blogs/${blog._id}`, blog, {
+    const { data } = await Axios.put(`http://localhost:5000/api/blogs/${blog._id}`, blog, {
       headers: { Authorization: `Bearer ${userInfo.token}` },
     });
     dispatch({ type: BLOG_UPDATE_SUCCESS, payload: data });
@@ -101,7 +101,7 @@ export const deleteBlog = (blogId) => async (dispatch, getState) => {
     userSignin: { userInfo },
   } = getState();
   try {
-    const { data } = Axios.delete(`/api/blogs/${blogId}`, {
+    const { data } = Axios.delete(`http://localhost:5000/api/blogs/${blogId}`, {
       headers: { Authorization: `Bearer ${userInfo.token}` },
     });
     dispatch({ type: BLOG_DELETE_SUCCESS });

@@ -1,7 +1,7 @@
-const express  = require("express");
-const expressAsyncHandler = require("express-async-handler");
-const Blog  = require("../models/blogModel.js");
-const { isAdmin, isAuth }  = require("../utils.js");
+
+import express from 'express';
+import expressAsyncHandler from 'express-async-handler';
+import Blog from '../models/blogModel.js';
 
 const blogRouter = express.Router();
 
@@ -73,5 +73,4 @@ blogRouter.delete(
   })
 );
 
-
-module.exports = blogRouter
+export default blogRouter

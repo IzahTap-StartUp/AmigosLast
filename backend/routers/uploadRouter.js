@@ -1,6 +1,7 @@
-const multer = require('multer');
-const express = require('express');
-const  { isAuth } = require('../utils.js');
+
+import express from 'express';
+import multer from 'multer';
+import  { isAuth } from '../utils.js';
 
 const uploadRouter = express.Router();
 

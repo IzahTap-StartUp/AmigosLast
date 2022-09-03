@@ -22,7 +22,7 @@ export const listJobs = () => async (dispatch) => {
     type: JOB_LIST_REQUEST,
   });
   try {
-    const { data } = await Axios.get(`/api/jobs`);
+    const { data } = await Axios.get(`http://localhost:5000/api/jobs`);
     dispatch({ type: JOB_LIST_SUCCESS, payload: data.jobs });
   } catch (error) {
     dispatch({ type: JOB_LIST_FAIL, payload: error.message });
@@ -32,7 +32,7 @@ export const listJobs = () => async (dispatch) => {
 export const detailsJob = (jobId) => async (dispatch) => {
   dispatch({ type: JOB_DETAILS_REQUEST, payload: jobId });
   try {
-    const { data } = await Axios.get(`/api/jobs/${jobId}`);
+    const { data } = await Axios.get(`http://localhost:5000/api/jobs/${jobId}`);
     dispatch({ type: JOB_DETAILS_SUCCESS, payload: data });
   } catch (error) {
     dispatch({
@@ -51,7 +51,7 @@ export const createJob = () => async (dispatch, getState) => {
   } = getState();
   try {
     const { data } = await Axios.post(
-      "/api/jobs",
+      "http://localhost:5000/api/jobs",
       {},
       {
         headers: { Authorization: `Bearer ${userInfo.token}` },
@@ -75,7 +75,7 @@ export const updateJob = (job) => async (dispatch, getState) => {
     userSignin: { userInfo },
   } = getState();
   try {
-    const { data } = await Axios.put(`/api/jobs/${job._id}`, job, {
+    const { data } = await Axios.put(`http://localhost:5000/api/jobs/${job._id}`, job, {
       headers: { Authorization: `Bearer ${userInfo.token}` },
     });
     dispatch({ type: JOB_UPDATE_SUCCESS, payload: data });
@@ -93,7 +93,7 @@ export const deleteJob = (jobId) => async (dispatch, getState) => {
     userSignin: { userInfo },
   } = getState();
   try {
-    const { data } = Axios.delete(`/api/jobs/${jobId}`, {
+    const { data } = Axios.delete(`http://localhost:5000/api/jobs/${jobId}`, {
       headers: { Authorization: `Bearer ${userInfo.token}` },
     });
     dispatch({ type: JOB_DELETE_SUCCESS });

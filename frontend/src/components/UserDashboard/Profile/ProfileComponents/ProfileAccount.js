@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Axios from "axios";
+import { Image } from "cloudinary-react";
 import { useDispatch, useSelector } from "react-redux";
 import profile from "../../../../assets/images/dashboardimages/icon.png";
 import {
@@ -10,6 +11,8 @@ import { USER_UPDATE_PROFILE_RESET } from "../../../../common/redux/constants/us
 import LoadingBox from "../../../HelperComponents/LoadingBox";
 import MessageBox from "../../../HelperComponents/MessageBox";
 import { years, ages, months } from "../../../../common/helpers/utils";
+
+
 const ProfileAccount = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -55,34 +58,30 @@ const ProfileAccount = () => {
         age,
         month,
         year,
-        
       })
     );
   };
-
+  const [imageSelected, setImageSelected] = useState("");
   const [loadingUpload, setLoadingUpload] = useState(false);
   const [errorUpload, setErrorUpload] = useState("");
 
-  const uploadFileHandler = async (e) => {
-    const file = e.target.files[0];
-    const bodyFormData = new FormData();
-    bodyFormData.append("image", file);
-    setLoadingUpload(true);
-    try {
-      const { data } = await Axios.post("/api/uploads", bodyFormData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-          Authorization: `Bearer ${userInfo.token}`,
-        },
-      });
-      setImage(data);
-      setLoadingUpload(false);
-    } catch (error) {
-      setErrorUpload(error.message);
-      setLoadingUpload(false);
-    }
-  };
 
+  const uploadFileHandler = () => {
+    const formData = new FormData();
+    formData.append("file", imageSelected);
+    formData.append("upload_preset", "ucsexwqc");
+    setLoadingUpload(true);
+    Axios.post(
+      "https://api.cloudinary.com/v1_1/progriot/image/upload",
+      formData
+    ).then((response) => {
+      const data = response.data;
+      const fileURL = data.secure_url;
+      setImage(fileURL);
+      console.log(data)
+    });
+    setLoadingUpload(false);
+  };
   return (
     <React.Fragment>
       <div className="pl-[10px] lg:pl-[20px]">
@@ -103,14 +102,10 @@ const ProfileAccount = () => {
                 </MessageBox>
               )}
 
-              <div className="my-[20px] mx-[0] flex flex-col lg:flex-row items-start lg:items-center py-[20px]">
-                <div className="w-[80px] h-[80px] lg:w-[120px] lg:h-[120px]">
+              <div className="my-[20px] mx-[0] flex flex-col lg:flex-row items-start lg:items-center py-[20px] pl-[20px]">
+                <div className="w-[80px] h-[80px]   lg:w-[120px] lg:h-[120px]">
                   {user.image ? (
-                    <img
-                      src={user.image}
-                      alt="profile"
-                      className="w-[80px] h-[80px] lg:w-[120px] lg:h-[120px] rounded-full"
-                    />
+                  <Image cloudName="progriot" publicId={image} className="rounded-full" />
                   ) : (
                     <img
                       src={profile}
@@ -120,13 +115,14 @@ const ProfileAccount = () => {
                   )}
                 </div>
                 <div className="lg:pl-[20px]">
-                  <input
+                    <input
                     type="file"
                     id="imageFile"
                     label="Choose Image"
                     className="w-[90%] px-[5px] lg:px-[20px] py-[10px]  text-[16px] mt-[5px] bg-[#6fcf97] rounded-[5px] text-white"
-                    onChange={uploadFileHandler}
-                  ></input>
+                    onChange={(e) => setImageSelected(e.target.files[0])}
+                  />
+                  <button className="bg-[#6fcf97] rounded-[10px] p-[10px] cursor-pointer mt-[10px] text-[white]" onClick={uploadFileHandler}>Set image as profile photo</button>
                   <p className="text-[12px] pt-[10px]">
                     Allowed JPG, GIF or PNG, Max size of 800K First Page
                   </p>

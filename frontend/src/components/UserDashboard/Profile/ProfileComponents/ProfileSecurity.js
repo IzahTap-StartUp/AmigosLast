@@ -34,7 +34,6 @@ const ProfileAccount = () => {
     }
   }, [dispatch, userInfo.id, user]);
 
-  console.log(userInfo);
 
   const submitHandler = (e) => {
     e.preventDefault();

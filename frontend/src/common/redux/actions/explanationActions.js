@@ -40,7 +40,7 @@ export const listExplanations = () => async (dispatch) => {
     type: EXPLANATION_LIST_REQUEST,
   });
   try {
-    const { data } = await Axios.get(`/api/explanations`);
+    const { data } = await Axios.get(`http://localhost:5000/api/explanations`);
     dispatch({ type: EXPLANATION_LIST_SUCCESS, payload: data.explanations });
   } catch (error) {
     dispatch({ type: EXPLANATION_LIST_FAIL, payload: error.message });
@@ -50,7 +50,7 @@ export const listExplanations = () => async (dispatch) => {
 export const detailsExplanation = (explanationId) => async (dispatch) => {
   dispatch({ type: EXPLANATION_DETAILS_REQUEST, payload: explanationId });
   try {
-    const { data } = await Axios.get(`/api/explanations/${explanationId}`);
+    const { data } = await Axios.get(`http://localhost:5000/api/explanations/${explanationId}`);
     dispatch({ type: EXPLANATION_DETAILS_SUCCESS, payload: data });
   } catch (error) {
     dispatch({
@@ -70,7 +70,7 @@ export const listExplanationTopics = (explanationId) => async (dispatch) => {
   });
   try {
     const { data } = await Axios.get(
-      `/api/explanations/${explanationId}/topics`
+      `http://localhost:5000/api/explanations/${explanationId}/topics`
     );
     dispatch({ type: EXPLANATION_TOPICS_LIST_SUCCESS, payload: data });
   } catch (error) {
@@ -92,7 +92,7 @@ export const listExplanationTopicsDetail =
     });
     try {
       const { data } = await Axios.get(
-        `/api/explanations/${explanationId}/topics/${topicId}`
+        `http://localhost:5000/api/explanations/${explanationId}/topics/${topicId}`
       );
       dispatch({ type: EXPLANATION_TOPIC_DETAIL_LIST_SUCCESS, payload: data });
     } catch (error) {
@@ -112,7 +112,7 @@ export const listSections = (explanationId, topicId) => async (dispatch) => {
   });
   try {
     const { data } = await Axios.get(
-      `/api/explanations/${explanationId}/topics/${topicId}/sections`
+      `http://localhost:5000/api/explanations/${explanationId}/topics/${topicId}/sections`
     );
     dispatch({ type: SECTION_LIST_SUCCESS, payload: data.explanations });
   } catch (error) {
@@ -127,7 +127,7 @@ export const listQuestions =
     });
     try {
       const { data } = await Axios.get(
-        `/api/explanations/${explanationId}/topics/${topicId}/sections/${sectionId}/questions`
+        `http://localhost:5000/api/explanations/${explanationId}/topics/${topicId}/sections/${sectionId}/questions`
       );
       dispatch({ type: QUESTION_LIST_SUCCESS, payload: data });
       console.log(data);
@@ -150,7 +150,7 @@ export const detailsQuestion =
     });
     try {
       const { data } = await Axios.get(
-        `/api/explanations/${explanationId}/topics/${topicId}/sections/${sectionId}/questions/${questionId}`
+        `http://localhost:5000/api/explanations/${explanationId}/topics/${topicId}/sections/${sectionId}/questions/${questionId}`
       );
       dispatch({ type: QUESTION_DETAILS_SUCCESS, payload: data });
       console.log(data);
@@ -173,7 +173,7 @@ export const createQuestionReview =
       userSignin: { userInfo },
     } = getState();
     try {
-      const { data } = await Axios.post(`/api/explanations/${explanationId}/topics/${topicId}/sections/${sectionId}/questions/${questionId}/reviews`, review, {
+      const { data } = await Axios.post(`http://localhost:5000/api/explanations/${explanationId}/topics/${topicId}/sections/${sectionId}/questions/${questionId}/reviews`, review, {
         headers: { Authorization: `Bearer ${userInfo.token}` },
       });
       dispatch({
@@ -197,7 +197,7 @@ export const createExplanation = () => async (dispatch, getState) => {
   } = getState();
   try {
     const { data } = await Axios.post(
-      "/api/explanations",
+      "http://localhost:5000/api/explanations",
       {},
       {
         headers: { Authorization: `Bearer ${userInfo.token}` },
@@ -223,7 +223,7 @@ export const updateExplanation =
     } = getState();
     try {
       const { data } = await Axios.put(
-        `/api/explanations/${explanation._id}`,
+        `http://localhost:5000/api/explanations/${explanation._id}`,
         explanation,
         {
           headers: { Authorization: `Bearer ${userInfo.token}` },
@@ -245,7 +245,7 @@ export const deleteExplanation =
       userSignin: { userInfo },
     } = getState();
     try {
-      const { data } = Axios.delete(`/api/explanations/${explanationId}`, {
+      const { data } = Axios.delete(`http://localhost:5000/api/explanations/${explanationId}`, {
         headers: { Authorization: `Bearer ${userInfo.token}` },
       });
       dispatch({ type: EXPLANATION_DELETE_SUCCESS });

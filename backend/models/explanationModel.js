@@ -1,5 +1,4 @@
-const mongoose = require("mongoose");
-
+import mongoose from 'mongoose';
 const ExplanationSchema = new mongoose.Schema(
   {
     title: { type: String, required: true },
@@ -41,4 +40,5 @@ const ExplanationSchema = new mongoose.Schema(
   }
 );
 
-module.exports = mongoose.model("Explanation", ExplanationSchema);
+const Explanation = mongoose.model('Explanation', ExplanationSchema);
+export default Explanation;

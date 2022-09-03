@@ -31,7 +31,7 @@ export const listBooks = (
     type: BOOK_LIST_REQUEST,
   });
   try {
-    const { data } = await Axios.get(`/api/books?page&title=${title}&category=${category}`);
+    const { data } = await Axios.get(`http://localhost:5000/api/books?page&title=${title}&category=${category}`);
     dispatch({ type: BOOK_LIST_SUCCESS, payload: data.books });
   } catch (error) {
     dispatch({ type: BOOK_LIST_FAIL, payload: error.message });
@@ -41,7 +41,7 @@ export const listBooks = (
 export const detailsBook = (bookId) => async (dispatch) => {
   dispatch({ type: BOOK_DETAILS_REQUEST, payload: bookId });
   try {
-    const { data } = await Axios.get(`/api/books/${bookId}`);
+    const { data } = await Axios.get(`http://localhost:5000/api/books/${bookId}`);
     dispatch({ type: BOOK_DETAILS_SUCCESS, payload: data });
   } catch (error) {
     dispatch({
@@ -59,7 +59,7 @@ export const detailsBook = (bookId) => async (dispatch) => {
 export const listSellerBooks = (sellerId) => async (dispatch) => {
   dispatch({ type: SELLER_BOOK_LIST_REQUEST });
   try {
-    const { data } = await Axios.get(`/api/books/seller/${sellerId}`);
+    const { data } = await Axios.get(`http://localhost:5000/api/books/seller/${sellerId}`);
     dispatch({ type: SELLER_BOOK_LIST_SUCCESS, payload: data });
     console.log( data);
   } catch (error) {
@@ -80,7 +80,7 @@ export const createBook = () => async (dispatch, getState) => {
   } = getState();
   try {
     const { data } = await Axios.post(
-      "/api/books",
+      "http://localhost:5000/api/books",
       {},
       {
         headers: { Authorization: `Bearer ${userInfo.token}` },
@@ -105,7 +105,7 @@ export const updateBook = (book) => async (dispatch, getState) => {
     userSignin: { userInfo },
   } = getState();
   try {
-    const { data } = await Axios.put(`/api/books/${book._id}`, book, {
+    const { data } = await Axios.put(`http://localhost:5000/api/books/${book._id}`, book, {
       headers: { Authorization: `Bearer ${userInfo.token}` },
     });
     dispatch({ type: BOOK_UPDATE_SUCCESS, payload: data });
@@ -124,7 +124,7 @@ export const deleteBook = (bookId) => async (dispatch, getState) => {
     userSignin: { userInfo },
   } = getState();
   try {
-    const { data } = await Axios.delete(`/api/books/${bookId}`, {
+    const { data } = await Axios.delete(`http://localhost:5000/api/books/${bookId}`, {
       headers: { Authorization: `Bearer ${userInfo.token}` },
     });
     dispatch({ type: BOOK_DELETE_SUCCESS, payload: data });

@@ -1,6 +1,6 @@
-const express = require("express");
-const expressAsyncHandler = require("express-async-handler");
-const Job = require("../models/jobModel.js");
+import express from 'express';
+import expressAsyncHandler from 'express-async-handler';
+import Job from '../models/jobModel.js';
 
 const jobRouter = express.Router();
 
@@ -72,4 +72,4 @@ jobRouter.delete(
   })
 );
 
-module.exports = jobRouter
+export default jobRouter;

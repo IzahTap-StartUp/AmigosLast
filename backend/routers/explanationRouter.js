@@ -1,6 +1,7 @@
-const express  = require("express");
-const expressAsyncHandler = require("express-async-handler");
-const Explanation = require("../models/explanationModel.js");
+
+import express from 'express';
+import expressAsyncHandler from 'express-async-handler';
+import Explanation from '../models/explanationModel.js';
 
 const explanationRouter = express.Router();
 
@@ -247,4 +248,4 @@ explanationRouter.post(
 //   })
 // );
 
-module.exports = explanationRouter
+export default explanationRouter;
